@@ -3,59 +3,78 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import avoLogo from "../public/avacadoo.png";
-import FeatherIcon from "feather-icons-react"
+import FeatherIcon from "feather-icons-react";
 import { Select, Button, Icon, Form } from "semantic-ui-react";
 
 import create from "zustand"
 import { SyntheticEvent, useEffect } from 'react';
 
-interface AppState {
-  selectedCourse: string;
-  courseList: string[];
-  allCourseData: Object;
-}
-
-interface Store {
-  data: AppState 
-  updateStore: any
-}
-
-const useStore = create<Store>(set => ({
-  data: {
-    selectedCourse: "",
-    courseList: [],
-    allCourseData: {}
-  },
-  updateStore: (newState: any) => set(state => ({ data: {...state.data, ...newState }}))
-}))
-
-const COURSE_OPTIONS = [
-  { key: "aat-3", value: "aat-3", text: "AAT Level 3" }
-]
-
 
 const Home: NextPage = () => {
-  const state: AppState = useStore(state => state.data);
-  const updateStore = useStore(state => state.updateStore);
-
-  // Initialise app with dummy data
-  useEffect(() => {
-    updateStore({ courseList: COURSE_OPTIONS })
-  }, [])
-
-  const selectCourse = (e: SyntheticEvent<HTMLElement, Event>, data: any) => {
-    const course = data.value;
-
-    if (state.courseList.find(c => c.value == course)) {
-      updateStore({ selectedCourse: course })
-    } else {
-      console.error(`Unable to find '${course}' in courseList`)
-    }
-  }
 
   return (
-    <div className="container">
-      <div className="flex items-center justify-center flex-col">
+    <div>
+      <div className="topbar shadow-md fixed w-full">
+        <div className="c-container flex items-center justify-between">
+            <div>
+              <FeatherIcon className="m-2 h-5" icon="menu" />
+            </div>
+            <div className="topbar__title">
+              <h1>AAT - Advanced Diploma</h1>
+            </div>
+            <div className="topbar__icons flex">
+              <FeatherIcon className="m-2 h-5" icon="user" />
+              <FeatherIcon className="m-2 h-5" icon="search" />
+            </div>
+        </div>
+      </div>
+      <div className="central-page h-screen c-container">
+
+        <div className="sidebar pr-5 pt-5">
+
+          <button className="module-notice p-3 bg-white rounded-lg border-2 border-gray-50 shadow-md w-full hover:bg-gray-100 transition duration-200 ease-in-out">
+              Advanced Bookkeeping
+              <span className="flex items-center text-xs mt-1 text-gray-300 justify-center">
+                  Click to change module
+                  <FeatherIcon className="h-3" icon="corner-right-up" />                
+              </span>
+          </button>
+
+          <ol className="p-3">
+            <li>1. Accruals & Payments</li>
+            <li className="list-block ml-4">
+              <ol>
+                <li>1.1 Accruals</li>
+                <li>1.2 Payments</li>
+              </ol>
+            </li>
+          </ol>
+
+        </div>
+
+        <div className="page pt-5 overflow-y-scroll">
+          <h1 className="page-header my-4">1. Accruals & Payments</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+
+        <div className="quickbar pl-5 pt-5">
+          <div className="p-3 bg-white rounded-lg border-2 border-gray-50 shadow-md w-full flex flex-col">
+            <h2 className="text-center text-gray-300 pb-2">Course Links</h2>
+            <ol>
+              <li>
+                <a>Definitions</a>              
+              </li>              
+              <li>
+                <a>Tests</a>              
+              </li>              
+            </ol>
+            
+          </div>
+        </div>
+      </div>
+      {/* <div className="flex items-center justify-center flex-col">
         <div className="flex justify-between m-3 w-full">
           <FeatherIcon icon="search" />
           <div className="flex">
@@ -69,7 +88,7 @@ const Home: NextPage = () => {
         </div>
         <h1 className="text-4xl text-center">
           Avacadoo <br /> Study Guide
-        </h1>
+        </h1> */}
         {/* CHANGE IT TO BE JUST A LIST OF ALL COURSES */}
         {/* <Form className="mt-6">
           <Form.Select placeholder="Pick a course" className="rounded-md" options={COURSE_OPTIONS} onChange={selectCourse} />
@@ -89,7 +108,7 @@ const Home: NextPage = () => {
             </>
           )
         } */}
-      </div>
+      {/* </div> */}
     </div>
   )
 }
