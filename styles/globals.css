@@ -31,6 +31,33 @@ body {
 .page {
   scrollbar-width: none;
 }
+
+.page * + * {
+  margin: 15px 0;
+}
+
+.page h1 {
+  font-size: 1.8rem;
+}
+
+.page h2 {
+  font-size: 1.4rem;
+}
+
+.page blockquote {
+  padding: 15px;
+  background: #e0e0e0;
+  border-radius: 0 5px 5px 0;
+  margin: 10px 0;
+  border-left: 3px solid #4183c4;
+}
+
+.page label {
+  cursor: pointer;
+  color: #4183c4;
+  font-family: monospace;
+}
+
 .page::-webkit-scrollbar {
   display: none;
 }
