@@ -32,8 +32,19 @@ const generatePage = (data: any) => {
     });
   });
   return fullText;
-  // return data[0].pages[0].childPages[0].body;
 };
+
+const generateIndex = (data: any) => {
+  let output: any[] = [];
+  const pages: any[] = data[0].pages;
+  pages.forEach((page, i) => {
+    output.push({ type: "page", index: i + 1, text: page.title });
+    page.childPages.forEach((child, j) => {
+      output.push({ type: "child", index: `${i + 1}.${j + 1}.`, text: child.title });
+    })
+  })
+  return output;
+}
 
 const Home: NextPage = () => {
   return (
@@ -63,13 +74,13 @@ const Home: NextPage = () => {
           </button>
 
           <ol className="p-3">
-            <li>1. Accruals & Payments</li>
-            <li className="list-block ml-4">
-              <ol>
-                <li>1.1 Accruals</li>
-                <li>1.2 Payments</li>
-              </ol>
-            </li>
+            {
+              // turn this into a real component!
+              generateIndex(data).map(entry => {
+                return entry.type == "page" ? <li>{entry.index} {entry.text}</li> 
+                : <li className="ml-4">{entry.index} {entry.text}</li>
+              })
+            }
           </ol>
         </div>
 
