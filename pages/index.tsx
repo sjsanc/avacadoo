@@ -99,7 +99,7 @@ const Home: NextPage = () => {
               h1: ({ node, ...props }) => (
                 <h1
                   // Extract ID from node to use for anchor links
-                  id={JSON.stringify(node.children[0].properties.href).replace(/\#/g, "").replace(/\"/g, "")}
+                  id={JSON.stringify(node.children[0]["properties"].href).replace(/\#/g, "").replace(/\"/g, "")}
                   {...props}
                 />
               ),
