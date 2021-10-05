@@ -1,11 +1,6 @@
 {
   "extends": "next/core-web-vitals",
-  "overrides": [
-    {
-      "files": "*.tsx",
-      "rules": {
-        "no-children-prop": "off"
-      }
-    }
-  ]
+  "rules": {
+    "react/no-children-prop": "off"
+  }
 }
