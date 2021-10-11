@@ -10,22 +10,20 @@ const formatHeaders = (header: string) => {
 };
 
 // Build the markdown data
-const concatMarkdown = (data: any[]): string => {
+const concatMarkdown = (pages: Page[]): string => {
   let markdown = "";
-  data.forEach((page, i) => {
-    markdown += `# [${i + 1}. ${page.title}](#${slugify(page.title)}) \n`;
+  pages.forEach((page, i) => {
+    markdown += `# [${i + 1}. ${page.pageHeader}](#${slugify(page.pageHeader)}) \n`;
     page.childPages.forEach((child: any, j) => {
-      markdown += `## [${i + 1}.${j + 1}. ${child.title}](#${slugify(child.title)}) \n`;
+      markdown += `## [${i + 1}.${j + 1}. ${child.title}](#${slugify(child.pageHeader)}) \n`;
       markdown += `${child.body} \n`;
     });
   });
   return markdown;
 };
 
-export default function Page(props: { pageBody: any }) {
+export default function Page(props: { pageBody: Page[] }) {
   const markdown = concatMarkdown(props.pageBody);
-
-  console.log(formatHeaders("1. Accrual & Payments"));
 
   return (
     <div className="page pt-5 overflow-y-scroll">
@@ -52,12 +50,3 @@ export default function Page(props: { pageBody: any }) {
     </div>
   );
 }
-
-// "modules": [
-//   "Advanced Bookkeeping",
-//   "Final Accounts Preparation",
-//   "Management Account Costing",
-//   "Advanced Level Synoptic",
-//   "Indirect Tax",
-//   "Spreadsheets"
-// ],

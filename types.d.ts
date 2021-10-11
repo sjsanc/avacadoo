@@ -1,23 +1,25 @@
-declare module 'feather-icons-react'
+declare module "feather-icons-react";
 
-interface AppState {
-    currentCourseId: string;
-    data: {
-        definitions: Definition[]
-    }
-}
-
-interface Definition {
-    id: string;
-    term: string;
-    definition: string;
-    hasFormula: boolean;
-    moduleId: string;
+interface Deifinition {
+  id: string;
+  term: string;
+  definitionText: string;
 }
 
 interface Page {
-    id: string;
-    moduleId: string;
-    title: string;
-    markdown: string;
+  pageHeader: string;
+  body: string;
+  childPages: Omit<Page, "childPages">[];
+}
+
+interface Module {
+  moduleTitle: string;
+  termDefinitions: Array<Definition>;
+  pages: Array<Page>;
+}
+
+interface CourseData {
+  course: string;
+  courseCode: string;
+  modules: Array<Module>;
 }
