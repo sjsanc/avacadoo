@@ -1,18 +1,18 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment, useState } from "react";
-import { useAppStore } from "../stores/useAppStore";
+// import { useAppStore } from "../stores/useAppStore";
 import { useCourseStore } from "../stores/useCourseStore";
 
 export default function ModuleSelecModal() {
-  const state = useAppStore();
+  // const state = useAppStore();
   const store = useCourseStore();
 
   return (
-    <Transition appear show={state.isModuleSelectorOpen} as={Fragment}>
+    <Transition appear show={store.isModuleSelectorOpen} as={Fragment}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 overflow-y-auto"
-        onClose={state.closeModuleSelector}>
+        onClose={store.closeModuleSelector}>
         <div className="min-h-screen px-4 text-center">
           <Transition.Child
             as={Fragment}
@@ -37,18 +37,21 @@ export default function ModuleSelecModal() {
             leave="ease-in duration-200"
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95">
-            <div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+            <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
               <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
                 Select a Module
               </Dialog.Title>
-              <h4 className="text-gray-400 text-sm italic">
+              <h4 className="text-gray-400 text-sm italic mb-2">
                 Current Course: {store.courseData.course}{" "}
               </h4>
-              <div class="flex flex-wrap mt-4">
+              <div className="flex flex-wrap">
                 {store.courseData.modules.map((m, i) => (
                   <button
-                    onClick={}
-                    className="px-5 py-3 rounded-md mr-2 bg-blue-100 hover:bg-blue-200"
+                    onClick={(event: React.BaseSyntheticEvent) => {
+                      store.setCurrentModule(event.currentTarget.innerHTML);
+                      store.closeModuleSelector();
+                    }}
+                    className="px-4 py-2 text-sm rounded-md mr-2 mt-2 bg-blue-100 hover:bg-blue-200"
                     key={i}>
                     {m.moduleTitle}
                   </button>

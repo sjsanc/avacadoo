@@ -1,6 +1,6 @@
 declare module "feather-icons-react";
 
-interface Deifinition {
+interface Definition {
   id: string;
   term: string;
   definitionText: string;

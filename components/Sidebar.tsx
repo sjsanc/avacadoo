@@ -2,7 +2,7 @@ import React from "react";
 import FeatherIcon from "feather-icons-react";
 import { slugify } from "../utils/helpers";
 import { useCourseStore } from "../stores/useCourseStore";
-import { useAppStore } from "../stores/useAppStore";
+// import { useAppStore } from "../stores/useAppStore";
 
 interface SidebarListElement {
   type: "page" | "child";
@@ -10,20 +10,15 @@ interface SidebarListElement {
   text: string;
 }
 
-const handleModuleChange = () => {
-  console.log("HI");
-};
-
 export default function Sidebar(props: { pageContents: Page[] }) {
   const pages = props.pageContents;
   const store = useCourseStore();
-  const state = useAppStore();
-
+  
   return (
     <div className="pr-5 pt-5">
       <button
-        onClick={state.openModuleSelector}
-        className="module-notice p-3 bg-white rounded-lg border-2 border-gray-50 shadow-md w-full hover:bg-gray-100 transition duration-200 ease-in-out">
+        onClick={store.openModuleSelector}
+        className="module-notice p-3 text-md bg-white rounded-lg border-2 border-gray-50 shadow-md w-full hover:bg-gray-100 transition duration-200 ease-in-out">
         {store.currentModule}
         <span className="flex items-center text-xs mt-1 text-gray-300 justify-center">
           Click to change module

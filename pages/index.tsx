@@ -25,7 +25,7 @@ import Page from "../components/Page";
 import Quicklinks from "../components/Quicklinks";
 import { useCourseStore } from "../stores/useCourseStore";
 import axios from "axios";
-import ModuleSelecModal from "../components/ModuleSelecModal";
+import ModuleSelectModal from "../components/ModuleSelectModal";
 
 const Home: NextPage<{ data: CourseData }> = ({ data }) => {
   const [pages, setPages] = useState<Page[]>([]);
@@ -34,7 +34,7 @@ const Home: NextPage<{ data: CourseData }> = ({ data }) => {
   // Dummy data fetching
   useEffect(() => {
     setTimeout(() => {
-      store.loadCourse(data);
+      store.setCourseData(data);
       store.setCurrentModule(data.modules[0].moduleTitle);
 
       const pageData = store.getPages();
@@ -64,14 +64,14 @@ const Home: NextPage<{ data: CourseData }> = ({ data }) => {
           <Quicklinks />
         </div>
       </div>
-      <ModuleSelecModal />
+      <ModuleSelectModal />
     </div>
   );
 };
 
 export async function getStaticProps<GetStaticProps>() {
   // JSON returns an array so get first index for dummy
-  const data: CourseData = DUMMY_API[0];
+  const data: any = DUMMY_API[0];
 
   return {
     props: {
