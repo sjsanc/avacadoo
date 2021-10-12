@@ -15,7 +15,7 @@ const concatMarkdown = (pages: Page[]): string => {
   pages.forEach((page, i) => {
     markdown += `# [${i + 1}. ${page.pageHeader}](#${slugify(page.pageHeader)}) \n`;
     page.childPages.forEach((child: any, j) => {
-      markdown += `## [${i + 1}.${j + 1}. ${child.title}](#${slugify(child.pageHeader)}) \n`;
+      markdown += `## [${i + 1}.${j + 1}. ${child.pageHeader}](#${slugify(child.pageHeader)}) \n`;
       markdown += `${child.body} \n`;
     });
   });

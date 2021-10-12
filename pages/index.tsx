@@ -45,6 +45,14 @@ const Home: NextPage<{ data: CourseData }> = ({ data }) => {
     }, 1000);
   }, []);
 
+  // listen to module selection change
+  useEffect(() => {
+    const pageData = store.getPages();
+    if (pageData) {
+      setPages(pageData);
+    }
+  }, [store.currentModule]);
+
   return (
     <div>
       <div>

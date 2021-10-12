@@ -26,7 +26,15 @@ body {
 .central-page {
   padding-top: 38px;
   display: grid;
-  grid-template-columns: 235px auto 190px;
+  grid-template-columns: 255px auto 190px;
+
+  @media screen and (max-width: 1140px) {
+    grid-template-columns: 255px auto;
+
+    > div:last-of-type {
+      display: none;
+    }
+  }
 }
 
 .page {

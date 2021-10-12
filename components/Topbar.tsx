@@ -8,7 +8,7 @@ export default function Topbar() {
       <div className="c-container flex items-center justify-between">
         <Menu as="div" className="relative">
           <div className="flex items-center">
-            <Menu.Button>
+            <Menu.Button className="hover:bg-gray-300 rounded">
               <FeatherIcon className="m-2 h-5" icon="menu" />
             </Menu.Button>
           </div>
