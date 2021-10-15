@@ -1,7 +1,7 @@
 import React from "react";
 import FeatherIcon from "feather-icons-react";
 import { slugify } from "../utils/helpers";
-import { useCourseStore } from "../stores/useCourseStore";
+import { useAppStore } from "../stores/useAppStore";
 // import { useAppStore } from "../stores/useAppStore";
 
 interface SidebarListElement {
@@ -12,12 +12,12 @@ interface SidebarListElement {
 
 export default function Sidebar(props: { pageContents: Page[] }) {
   const pages = props.pageContents;
-  const store = useCourseStore();
+  const store = useAppStore();
 
   return (
     <div className="sidebar pr-5 pt-5">
       <button
-        onClick={store.openModuleSelector}
+        onClick={() => store.toggleModal("moduleSelector")}
         className="module-notice p-3 text-md bg-white rounded-lg border-2 border-gray-50 shadow-md w-full hover:bg-gray-100 transition duration-200 ease-in-out">
         {store.currentModule}
         <span className="flex items-center text-xs mt-1 text-gray-300 justify-center">

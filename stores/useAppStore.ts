@@ -1,32 +1,37 @@
 import create from "zustand";
-import { combine } from "zustand/middleware";
+import { redux, devtools, combine } from "zustand/middleware";
 import produce from "immer";
 
 interface Store {
   courseData: CourseData;
   currentModule: string;
   isModuleSelectorOpen: boolean;
+  isLoginOpen: boolean;
 }
 
-const initialState: Store = {
+const initialState: any = {
   courseData: {
     course: "",
     courseCode: "",
     modules: [],
   },
   currentModule: "",
-  isModuleSelectorOpen: false,
+
+  openModalName: "",
 };
 
-export const useCourseStore = create(
+export const useAppStore = create(
   combine(initialState, (set, get) => ({
     setCourseData: (data: CourseData) => set((state) => ({ courseData: data })),
     setCurrentModule: (moduleName: string) => set((state) => ({ currentModule: moduleName })),
+    
     getPages: () => {
       const data = get().courseData.modules.find((m) => m.moduleTitle == get().currentModule);
       if (data) return data.pages;
     },
-    openModuleSelector: () => set({ isModuleSelectorOpen: true }),
-    closeModuleSelector: () => set({ isModuleSelectorOpen: false }),
+
+    toggleModal: (modal: string | null) => set({ openModalName: modal }),
+    isModal: (modal: string) => {return  modal == get().openModalName ? true : false } 
   }))
 );
+// toggleShow: () => set((state) => ({ show: !state.show})),

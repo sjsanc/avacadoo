@@ -23,13 +23,13 @@ import { Menu, Transition } from "@headlessui/react";
 import Topbar from "../components/Topbar";
 import Page from "../components/Page";
 import Quicklinks from "../components/Quicklinks";
-import { useCourseStore } from "../stores/useCourseStore";
+import { useAppStore } from "../stores/useAppStore";
 import axios from "axios";
-import ModuleSelectModal from "../components/ModuleSelectModal";
+import Modal from "../components/Modal";
 
 const Home: NextPage<{ data: CourseData }> = ({ data }) => {
   const [pages, setPages] = useState<Page[]>([]);
-  const store = useCourseStore();
+  const store = useAppStore();
 
   // Dummy data fetching
   useEffect(() => {
@@ -72,7 +72,31 @@ const Home: NextPage<{ data: CourseData }> = ({ data }) => {
           <Quicklinks />
         </div>
       </div>
-      <ModuleSelectModal />
+      <div className="modal-wrapper">
+        
+        <Modal show={store.isModal("moduleSelector")} onClose={() => store.toggleModal(null)} header="Select a module">
+          <h4 className="text-gray-400 text-sm italic mb-2">
+            Current Course: {store.courseData.course}
+          </h4>
+          <div className="flex flex-wrap">
+            {store.courseData.modules.map((m, i) => (
+              <button
+                onClick={(event: React.BaseSyntheticEvent) => {
+                  store.setCurrentModule(event.currentTarget.innerHTML);
+                  store.toggleModal(null)
+                }}
+                className="px-4 py-2 text-sm rounded-md mr-2 mt-2 bg-blue-100 hover:bg-blue-200"
+                key={i}>
+                {m.moduleTitle}
+              </button>
+            ))}
+          </div>
+        </Modal>
+
+        <Modal show={store.isModal("login")} onClose={() => store.toggleModal(null)} header="Sign in to Avacadoo">
+
+        </Modal>
+      </div>
     </div>
   );
 };

@@ -1,8 +1,11 @@
 import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import FeatherIcon from "feather-icons-react";
+import { useAppStore } from "../stores/useAppStore";
 
 export default function Topbar() {
+  const store = useAppStore();
+
   return (
     <div className="topbar shadow-md fixed w-full">
       <div className="c-container flex items-center justify-between">
@@ -46,6 +49,7 @@ export default function Topbar() {
                 <FeatherIcon className="m-2 h-5" icon="user" />
               </Menu.Button>
             </div>
+
             <Transition
               as={Fragment}
               enter="transition ease-out duration-50"
@@ -55,17 +59,17 @@ export default function Topbar() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95">
               <Menu.Items className="absolute flex flex-col items-start right-0 w-48 mt-2 p-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <Menu.Item>
+                {/* <Menu.Item>
                   {({ active }) => (
                     <button className="p-2 rounded w-full text-left hover:bg-gray-100">
                       View Account
                     </button>
                   )}
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item>
                   {({ active }) => (
-                    <button className="p-2 rounded w-full text-left hover:bg-gray-100">
-                      Logout
+                    <button onClick={() => store.toggleModal("login")} className="p-2 rounded w-full text-left hover:bg-gray-100">
+                      Login
                     </button>
                   )}
                 </Menu.Item>
