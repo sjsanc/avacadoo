@@ -4,7 +4,7 @@ import React, { Fragment } from 'react'
 interface ModalProps {
     show: boolean;
     onClose: () => void;
-    header: string;
+    size: "md" | "lg" | "sm" | "xs";
 }
 
 const Modal: React.FC<ModalProps> = (props) => {
@@ -38,10 +38,7 @@ const Modal: React.FC<ModalProps> = (props) => {
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95">
-                <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                        <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
-                        { props.header }
-                        </Dialog.Title>
+                <div className={`inline-block w-full max-w-${props.size} p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl`}>
                         { props.children }
                 </div>
                 </Transition.Child>

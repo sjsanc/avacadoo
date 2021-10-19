@@ -2,9 +2,15 @@ import React, { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import FeatherIcon from "feather-icons-react";
 import { useAppStore } from "../stores/useAppStore";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 export default function Topbar() {
   const store = useAppStore();
+  const { data: session, status } = useSession();
+
+  if (session) {
+    console.log(status);
+  }
 
   return (
     <div className="topbar shadow-md fixed w-full">
@@ -22,16 +28,25 @@ export default function Topbar() {
             enterTo="transform opacity-100 scale-100"
             leave="transition ease-in duration-75"
             leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95">
-            <Menu.Items className="absolute left-0 flex flex-col items-start w-48 p-2 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items
+              className="absolute left-0 flex flex-col items-start w-48 p-2 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+            >
               <Menu.Item>
                 {({ active }) => (
-                  <button className="p-2 rounded w-full text-left hover:bg-gray-100">Home</button>
+                  <button
+                    className="p-2 rounded w-full text-left hover:bg-gray-100"
+                  >
+                    Home
+                  </button>
                 )}
               </Menu.Item>
               <Menu.Item>
                 {({ active }) => (
-                  <button className="p-2 rounded w-full text-left hover:bg-gray-100">
+                  <button
+                    className="p-2 rounded w-full text-left hover:bg-gray-100"
+                  >
                     Courses
                   </button>
                 )}
@@ -57,21 +72,38 @@ export default function Topbar() {
               enterTo="transform opacity-100 scale-100"
               leave="transition ease-in duration-75"
               leaveFrom="transform opacity-100 scale-100"
-              leaveTo="transform opacity-0 scale-95">
-              <Menu.Items className="absolute flex flex-col items-start right-0 w-48 mt-2 p-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                {/* <Menu.Item>
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items
+                className="absolute flex flex-col items-start right-0 w-48 mt-2 p-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              >
+                {
+                  /* <Menu.Item>
                   {({ active }) => (
                     <button className="p-2 rounded w-full text-left hover:bg-gray-100">
                       View Account
                     </button>
                   )}
-                </Menu.Item> */}
+                </Menu.Item> */
+                }
                 <Menu.Item>
-                  {({ active }) => (
-                    <button onClick={() => store.toggleModal("login")} className="p-2 rounded w-full text-left hover:bg-gray-100">
-                      Login
-                    </button>
-                  )}
+                  {!session
+                    ? (
+                      <button
+                        onClick={() => store.toggleModal("login")}
+                        className="p-2 rounded w-full text-left hover:bg-gray-100"
+                      >
+                        Login
+                      </button>
+                    )
+                    : (
+                      <button
+                        onClick={signOut}
+                        className="p-2 rounded w-full text-left hover:bg-gray-100"
+                      >
+                        Logout
+                      </button>
+                    )}
                 </Menu.Item>
               </Menu.Items>
             </Transition>

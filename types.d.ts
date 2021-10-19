@@ -1,4 +1,6 @@
 declare module "feather-icons-react";
+declare module "next-auth/providers/auth0"
+declare module 'next-auth/react'
 
 interface Definition {
   id: string;
